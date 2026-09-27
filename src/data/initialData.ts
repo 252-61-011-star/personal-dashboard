@@ -1,0 +1,523 @@
+import type { DashboardState } from '../types';
+
+export const initialDashboardState: DashboardState = {
+  profile: {
+    name: 'Nh Anik',
+    program: 'Bachelor of Business Administration (BBA)',
+    semester: 'Semester 2 • Spring 2026',
+    institution: 'Daffodil International University (DIU)',
+    targetCgpa: 3.90,
+  },
+  quotes: [
+    {
+      id: 'q-1',
+      text: 'What I cannot create, I do not understand. Know how to solve every problem that has been solved.',
+      author: 'Richard Feynman',
+      category: 'Analytical Thinking',
+      isFavorite: true,
+    },
+    {
+      id: 'q-2',
+      text: 'Learn to sell. Learn to build. If you can do both, you will be unstoppable.',
+      author: 'Naval Ravikant',
+      category: 'Marketing Wisdom',
+      isFavorite: true,
+    },
+    {
+      id: 'q-3',
+      text: 'You have power over your mind - not outside events. Realize this, and you will find strength.',
+      author: 'Marcus Aurelius',
+      category: 'Focus & Depth',
+      isFavorite: true,
+    },
+    {
+      id: 'q-4',
+      text: 'I never allow myself to have an opinion on anything that I don’t know the other side’s argument better than they do.',
+      author: 'Charlie Munger',
+      category: 'Mental Models',
+      isFavorite: true,
+    },
+    {
+      id: 'q-5',
+      text: 'Clarity of thought precedes clarity of execution. Clear thinkers appeal to first principles and speak in simple words.',
+      author: 'Naval Ravikant',
+      category: 'Mental Models',
+      isFavorite: true,
+    },
+    {
+      id: 'q-6',
+      text: 'Study hard what interests you the most in the most undisciplined, irreverent and original manner possible.',
+      author: 'Richard Feynman',
+      category: 'Growth & Resilience',
+      isFavorite: true,
+    },
+    {
+      id: 'q-7',
+      text: 'The best marketing is making a product so undeniably remarkable that people cannot help but talk about it.',
+      author: 'Seth Godin',
+      category: 'Marketing Wisdom',
+      isFavorite: false,
+    },
+    {
+      id: 'q-8',
+      text: 'We suffer more often in imagination than in reality. Keep your attention focused entirely on what is truly your own concern.',
+      author: 'Seneca',
+      category: 'Growth & Resilience',
+      isFavorite: false,
+    },
+    {
+      id: 'q-9',
+      text: 'Simple can be harder than complex: You have to work hard to get your thinking clean to make it simple.',
+      author: 'Steve Jobs',
+      category: 'Focus & Depth',
+      isFavorite: false,
+    },
+  ],
+  todos: [
+    {
+      id: 'todo-1',
+      title: 'Review Principles of Marketing: STP Strategy & Case Study',
+      description: 'Go through segmentation variables and positioning map examples.',
+      category: 'study',
+      priority: 'high',
+      completed: false,
+      dueDate: new Date().toISOString().split('T')[0],
+      courseId: 'course-mkt101',
+      createdAt: new Date().toISOString(),
+    },
+    {
+      id: 'todo-2',
+      title: 'Solve 5 Optimization & Marginal Cost problems in Business Math',
+      description: 'Practice taking derivatives to calculate maximum profit points.',
+      category: 'study',
+      priority: 'high',
+      completed: false,
+      dueDate: new Date().toISOString().split('T')[0],
+      courseId: 'course-mat103',
+      createdAt: new Date().toISOString(),
+    },
+    {
+      id: 'todo-3',
+      title: 'Draft Microeconomics Assignment: Market Equilibrium & Price Elasticity',
+      description: 'Prepare diagrams for consumer surplus and deadweight loss.',
+      category: 'assignment',
+      priority: 'medium',
+      completed: false,
+      dueDate: new Date(Date.now() + 86400000 * 2).toISOString().split('T')[0],
+      courseId: 'course-eco102',
+      createdAt: new Date().toISOString(),
+    },
+    {
+      id: 'todo-4',
+      title: 'Practice Double-Entry Journal adjustments for Accounting',
+      description: 'Work out accruals and depreciation calculations.',
+      category: 'study',
+      priority: 'medium',
+      completed: true,
+      dueDate: new Date().toISOString().split('T')[0],
+      courseId: 'course-act104',
+      createdAt: new Date().toISOString(),
+      completedAt: new Date().toISOString(),
+    },
+  ],
+  habits: [
+    {
+      id: 'habit-1',
+      name: 'Deep Analytical Study (90 mins focused block)',
+      category: 'Academics',
+      targetPerWeek: 6,
+      history: {
+        [new Date().toISOString().split('T')[0]]: true,
+      },
+      createdAt: new Date().toISOString(),
+    },
+    {
+      id: 'habit-2',
+      name: 'Read 20+ Pages / Listen to Audiobook',
+      category: 'Personal Growth',
+      targetPerWeek: 7,
+      history: {
+        [new Date().toISOString().split('T')[0]]: true,
+      },
+      createdAt: new Date().toISOString(),
+    },
+    {
+      id: 'habit-3',
+      name: 'Evening Daily Syllabus & Todo Review (10 mins)',
+      category: 'Clarity',
+      targetPerWeek: 7,
+      history: {},
+      createdAt: new Date().toISOString(),
+    },
+    {
+      id: 'habit-4',
+      name: 'Physical Workout / 5k Step Walk',
+      category: 'Health & Energy',
+      targetPerWeek: 5,
+      history: {},
+      createdAt: new Date().toISOString(),
+    },
+  ],
+  courses: [
+    {
+      id: 'course-mkt101',
+      code: 'MKT 101',
+      name: 'Principles of Marketing',
+      instructor: 'Dept of Marketing, DIU',
+      credits: 3.0,
+      color: '#3b82f6', // Blue
+      targetGrade: 'A+',
+      achievedGrade: 'A+',
+      modules: [
+        {
+          id: 'mkt-m1',
+          title: 'Module 1: Customer Value & Marketing Strategy',
+          topics: [
+            { id: 'mkt-t1', title: 'Defining Marketing & Marketing Process', completed: true, importance: 'core', notes: 'Needs, wants, demands. Customer lifetime value (CLV).' },
+            { id: 'mkt-t2', title: 'Company & Marketing Strategy (Strategic Planning)', completed: true, importance: 'core', notes: 'BCG Growth-Share Matrix (Stars, Cash Cows, Dogs, Question Marks), Product/Market expansion grid.' },
+            { id: 'mkt-t3', title: 'Analyzing the Marketing Environment (Micro & Macro)', completed: false, importance: 'important', notes: 'PESTEL analysis framework, competitors, demographics.' },
+          ],
+        },
+        {
+          id: 'mkt-m2',
+          title: 'Module 2: Consumer Behavior & STP Strategy',
+          topics: [
+            { id: 'mkt-t4', title: 'Consumer Market & Buyer Behavior Model', completed: true, importance: 'core', notes: 'Cultural, social, personal, psychological factors. Buyer decision process steps.' },
+            { id: 'mkt-t5', title: 'Market Segmentation & Targeting (STP)', completed: false, importance: 'core', notes: 'Geographic, Demographic, Psychographic, Behavioral segmentation strategies.' },
+            { id: 'mkt-t6', title: 'Differentiation & Value Positioning Maps', completed: false, importance: 'core', notes: 'Creating unique value proposition vs competitors.' },
+          ],
+        },
+        {
+          id: 'mkt-m3',
+          title: 'Module 3: Products, Services, Branding & Pricing',
+          topics: [
+            { id: 'mkt-t7', title: 'Product Levels & Product Life Cycle (PLC)', completed: false, importance: 'core', notes: 'Core, actual, augmented product. Introduction, Growth, Maturity, Decline phases.' },
+            { id: 'mkt-t8', title: 'Brand Equity & New Product Development', completed: false, importance: 'important' },
+            { id: 'mkt-t9', title: 'Pricing Strategies (Cost-based vs Value-based)', completed: false, importance: 'core', notes: 'Price elasticity, skimming vs penetration pricing.' },
+          ],
+        },
+        {
+          id: 'mkt-m4',
+          title: 'Module 4: Marketing Channels & Digital Communication',
+          topics: [
+            { id: 'mkt-t10', title: 'Marketing Channels & Supply Chain Management', completed: false, importance: 'important' },
+            { id: 'mkt-t11', title: 'Integrated Marketing Communications (IMC)', completed: false, importance: 'core' },
+            { id: 'mkt-t12', title: 'Digital & Social Media Marketing Fundamentals', completed: false, importance: 'core' },
+          ],
+        },
+      ],
+      exams: [
+        {
+          id: 'exam-mkt-mid',
+          title: 'Marketing Midterm Exam',
+          courseId: 'course-mkt101',
+          date: new Date(Date.now() + 86400000 * 18).toISOString().split('T')[0] + 'T10:00',
+          location: 'Main Academic Building, DIU',
+          room: 'AB-402',
+          weightage: 25,
+          syllabusModulesCovered: ['Module 1: Customer Value & Marketing Strategy', 'Module 2: Consumer Behavior & STP Strategy'],
+        },
+      ],
+    },
+    {
+      id: 'course-eco102',
+      code: 'ECO 102',
+      name: 'Principles of Microeconomics',
+      instructor: 'Dept of Economics, DIU',
+      credits: 3.0,
+      color: '#10b981', // Emerald
+      targetGrade: 'A+',
+      achievedGrade: 'A+',
+      modules: [
+        {
+          id: 'eco-m1',
+          title: 'Module 1: Foundations of Economics & Scarcity',
+          topics: [
+            { id: 'eco-t1', title: 'Ten Principles of Economics & Marginal Thinking', completed: true, importance: 'core', notes: 'Trade-offs, opportunity costs, incentives, market efficiency vs government intervention.' },
+            { id: 'eco-t2', title: 'Thinking Like an Economist (PPF & Circular Flow)', completed: true, importance: 'important', notes: 'Production Possibilities Frontier shifts, comparative vs absolute advantage.' },
+          ],
+        },
+        {
+          id: 'eco-m2',
+          title: 'Module 2: Supply, Demand & Market Equilibrium',
+          topics: [
+            { id: 'eco-t3', title: 'Market Forces of Supply & Demand', completed: true, importance: 'core', notes: 'Shift in curve vs movement along curve, equilibrium price/quantity.' },
+            { id: 'eco-t4', title: 'Elasticity and its Application (PED, XED, YED)', completed: true, importance: 'core', notes: 'Price elasticity formula: % change in Q / % change in P. Total revenue test.' },
+            { id: 'eco-t5', title: 'Consumer Surplus, Producer Surplus & Market Efficiency', completed: false, importance: 'core', notes: 'Deadweight loss caused by taxation and price floors/ceilings.' },
+          ],
+        },
+        {
+          id: 'eco-m3',
+          title: 'Module 3: Theory of Consumer Choice & Firm Production Costs',
+          topics: [
+            { id: 'eco-t6', title: 'Utility Maximization & Indifference Curves', completed: false, importance: 'core', notes: 'Marginal Rate of Substitution (MRS) = Price Ratio.' },
+            { id: 'eco-t7', title: 'Production Function & Short-run/Long-run Cost Curves', completed: false, importance: 'core', notes: 'Law of diminishing returns, ATC = AFC + AVC, Marginal Cost intersects ATC at minimum.' },
+          ],
+        },
+        {
+          id: 'eco-m4',
+          title: 'Module 4: Market Structures & Pricing Power',
+          topics: [
+            { id: 'eco-t8', title: 'Firms in Competitive Markets (MR = MC)', completed: false, importance: 'core' },
+            { id: 'eco-t9', title: 'Monopoly & Price Discrimination', completed: false, importance: 'core' },
+            { id: 'eco-t10', title: 'Monopolistic Competition & Oligopoly (Game Theory / Nash Eq)', completed: false, importance: 'core' },
+          ],
+        },
+      ],
+      exams: [
+        {
+          id: 'exam-eco-mid',
+          title: 'Microeconomics Midterm Exam',
+          courseId: 'course-eco102',
+          date: new Date(Date.now() + 86400000 * 20).toISOString().split('T')[0] + 'T14:00',
+          location: 'Main Academic Building, DIU',
+          room: 'AB-305',
+          weightage: 25,
+          syllabusModulesCovered: ['Module 1: Foundations of Economics & Scarcity', 'Module 2: Supply, Demand & Market Equilibrium'],
+        },
+      ],
+    },
+    {
+      id: 'course-mat103',
+      code: 'MAT 103',
+      name: 'Business Mathematics & Analytics',
+      instructor: 'Dept of Mathematics, DIU',
+      credits: 3.0,
+      color: '#06b6d4', // Cyan
+      targetGrade: 'A+',
+      achievedGrade: 'A+',
+      modules: [
+        {
+          id: 'mat-m1',
+          title: 'Module 1: Linear Equations & Matrix Algebra',
+          topics: [
+            { id: 'mat-t1', title: 'Linear Equations & Break-even Analysis', completed: true, importance: 'core', notes: 'Fixed cost + Variable cost = Total Revenue at break-even.' },
+            { id: 'mat-t2', title: 'Matrix Inversion & Cramer’s Rule in Business Systems', completed: true, importance: 'core', notes: 'Solving 2x2 and 3x3 systems for equilibrium output.' },
+          ],
+        },
+        {
+          id: 'mat-m2',
+          title: 'Module 2: Mathematics of Finance & Interest',
+          topics: [
+            { id: 'mat-t3', title: 'Simple & Compound Interest, Effective Annual Rate (EAR)', completed: true, importance: 'core' },
+            { id: 'mat-t4', title: 'Annuities, Sinking Funds & Loan Amortization', completed: false, importance: 'core', notes: 'Present Value & Future Value of Ordinary Annuity.' },
+          ],
+        },
+        {
+          id: 'mat-m3',
+          title: 'Module 3: Differential Calculus for Business Optimization',
+          topics: [
+            { id: 'mat-t5', title: 'Rules of Differentiation & Marginal Functions', completed: false, importance: 'core', notes: 'Marginal Cost MC = d(TC)/dQ, Marginal Revenue MR = d(TR)/dQ.' },
+            { id: 'mat-t6', title: 'Optimization: Finding Maximum Profit & Minimum Average Cost', completed: false, importance: 'core', notes: 'First order condition: f\'(x)=0, Second order condition: f\'\'(x) < 0 for max.' },
+          ],
+        },
+        {
+          id: 'mat-m4',
+          title: 'Module 4: Integral Calculus & Area Applications',
+          topics: [
+            { id: 'mat-t7', title: 'Indefinite & Definite Integrals in Economics', completed: false, importance: 'important' },
+            { id: 'mat-t8', title: 'Calculating Consumer & Producer Surplus via Integration', completed: false, importance: 'core' },
+          ],
+        },
+      ],
+      exams: [
+        {
+          id: 'exam-mat-mid',
+          title: 'Business Math Midterm Exam',
+          courseId: 'course-mat103',
+          date: new Date(Date.now() + 86400000 * 22).toISOString().split('T')[0] + 'T10:00',
+          location: 'Main Academic Building, DIU',
+          room: 'AB-501',
+          weightage: 25,
+          syllabusModulesCovered: ['Module 1: Linear Equations & Matrix Algebra', 'Module 2: Mathematics of Finance & Interest'],
+        },
+      ],
+    },
+    {
+      id: 'course-act104',
+      code: 'ACT 104',
+      name: 'Financial Accounting Principles',
+      instructor: 'Dept of Accounting, DIU',
+      credits: 3.0,
+      color: '#8b5cf6', // Violet
+      targetGrade: 'A+',
+      achievedGrade: 'A',
+      modules: [
+        {
+          id: 'act-m1',
+          title: 'Module 1: Accounting Environment & Double-Entry Concept',
+          topics: [
+            { id: 'act-t1', title: 'Accounting Principles (GAAP, Going Concern, Matching)', completed: true, importance: 'core' },
+            { id: 'act-t2', title: 'The Fundamental Accounting Equation & Transaction Analysis', completed: true, importance: 'core', notes: 'Assets = Liabilities + Owner\'s Equity.' },
+          ],
+        },
+        {
+          id: 'act-m2',
+          title: 'Module 2: The Accounting Cycle & General Journal',
+          topics: [
+            { id: 'act-t3', title: 'Recording Transactions in General Journal', completed: true, importance: 'core' },
+            { id: 'act-t4', title: 'Posting to General Ledger & Preparing Trial Balance', completed: false, importance: 'core' },
+          ],
+        },
+        {
+          id: 'act-m3',
+          title: 'Module 3: Adjusting Entries & Financial Statements',
+          topics: [
+            { id: 'act-t5', title: 'Accruals, Deferrals & Depreciation Adjustments', completed: false, importance: 'core' },
+            { id: 'act-t6', title: 'Preparing Income Statement, Balance Sheet & Equity Statement', completed: false, importance: 'core' },
+          ],
+        },
+        {
+          id: 'act-m4',
+          title: 'Module 4: Inventory Accounting & Internal Controls',
+          topics: [
+            { id: 'act-t7', title: 'Periodic vs Perpetual Inventory (FIFO, Weighted Average)', completed: false, importance: 'important' },
+            { id: 'act-t8', title: 'Bank Reconciliation Statements', completed: false, importance: 'core' },
+          ],
+        },
+      ],
+      exams: [
+        {
+          id: 'exam-act-mid',
+          title: 'Financial Accounting Midterm',
+          courseId: 'course-act104',
+          date: new Date(Date.now() + 86400000 * 25).toISOString().split('T')[0] + 'T11:30',
+          location: 'Main Academic Building, DIU',
+          room: 'AB-204',
+          weightage: 25,
+        },
+      ],
+    },
+    {
+      id: 'course-eng105',
+      code: 'ENG 105',
+      name: 'Business Communication & Presentation',
+      instructor: 'Dept of English & Communication, DIU',
+      credits: 3.0,
+      color: '#f59e0b', // Amber
+      targetGrade: 'A+',
+      achievedGrade: 'A+',
+      modules: [
+        {
+          id: 'eng-m1',
+          title: 'Module 1: Professional Business Writing & 7 Cs',
+          topics: [
+            { id: 'eng-t1', title: 'The 7 Cs of Effective Business Communication', completed: true, importance: 'core', notes: 'Clear, Concise, Concrete, Correct, Coherent, Complete, Courteous.' },
+            { id: 'eng-t2', title: 'Executive Memos, Formal Emails & Proposals', completed: true, importance: 'core' },
+          ],
+        },
+        {
+          id: 'eng-m2',
+          title: 'Module 2: High-Impact Presentations & Public Speaking',
+          topics: [
+            { id: 'eng-t3', title: 'Structuring a Persuasive Business Pitch', completed: false, importance: 'core' },
+            { id: 'eng-t4', title: 'Data Storytelling & Slide Deck Architecture', completed: false, importance: 'important' },
+          ],
+        },
+        {
+          id: 'eng-m3',
+          title: 'Module 3: Negotiation & Interpersonal Dynamics',
+          topics: [
+            { id: 'eng-t5', title: 'Principled Negotiation & BATNA Concept', completed: false, importance: 'core' },
+            { id: 'eng-t6', title: 'Cross-Cultural Business Etiquette', completed: false, importance: 'supplementary' },
+          ],
+        },
+      ],
+      exams: [],
+    },
+  ],
+  assignments: [
+    {
+      id: 'asg-1',
+      title: 'Marketing Plan: Brand Positioning for Local EV Startup',
+      courseId: 'course-mkt101',
+      dueDate: new Date(Date.now() + 86400000 * 5).toISOString().split('T')[0] + 'T23:59',
+      weightage: 15,
+      status: 'in_progress',
+      notes: 'Focus on Segmentation, Target Persona, and Positioning Statement.',
+    },
+    {
+      id: 'asg-2',
+      title: 'Microeconomics Problem Set: Price Elasticity & Taxes',
+      courseId: 'course-eco102',
+      dueDate: new Date(Date.now() + 86400000 * 9).toISOString().split('T')[0] + 'T23:59',
+      weightage: 10,
+      status: 'not_started',
+      notes: 'Chapter 5 & 6 exercises from Mankiw.',
+    },
+    {
+      id: 'asg-3',
+      title: 'Business Mathematics: Matrix Optimization Report',
+      courseId: 'course-mat103',
+      dueDate: new Date(Date.now() + 86400000 * 14).toISOString().split('T')[0] + 'T17:00',
+      weightage: 15,
+      status: 'not_started',
+    },
+    {
+      id: 'asg-4',
+      title: 'Business Case Study Presentation Deck',
+      courseId: 'course-eng105',
+      dueDate: new Date(Date.now() + 86400000 * 12).toISOString().split('T')[0] + 'T10:00',
+      weightage: 20,
+      status: 'in_progress',
+    },
+  ],
+  books: [
+    {
+      id: 'book-1',
+      title: 'The Almanack of Naval Ravikant',
+      author: 'Eric Jorgenson',
+      type: 'book',
+      progress: 85,
+      status: 'reading',
+      keyTakeaway: 'Specific knowledge is found by pursuing your genuine curiosity and passion rather than whatever is hot right now.',
+      rating: 5,
+    },
+    {
+      id: 'book-2',
+      title: 'The Name of the Wind (Kingkiller Chronicle)',
+      author: 'Patrick Rothfuss',
+      type: 'audiobook',
+      progress: 60,
+      status: 'reading',
+      keyTakeaway: 'Deep world-building, analytical magic system (Sympathy) based on energy conservation and focus.',
+      rating: 5,
+    },
+    {
+      id: 'book-3',
+      title: 'Surely You\'re Joking, Mr. Feynman!',
+      author: 'Richard P. Feynman',
+      type: 'book',
+      progress: 100,
+      status: 'completed',
+      keyTakeaway: 'Never fool yourself — and remember that you are the easiest person to fool.',
+      rating: 5,
+    },
+    {
+      id: 'book-4',
+      title: 'Poor Charlie\'s Almanack',
+      author: 'Charlie Munger',
+      type: 'book',
+      progress: 40,
+      status: 'reading',
+      keyTakeaway: 'Latticework of mental models: synthesize psychology, economics, physics, and biology.',
+      rating: 5,
+    },
+  ],
+  cloudConfig: {
+    autoSync: false,
+  },
+};
+
+export const DIU_GRADE_SCALE = [
+  { grade: 'A+', gpa: 4.00, marks: '80% and above' },
+  { grade: 'A',  gpa: 3.75, marks: '75% to 79%' },
+  { grade: 'A-', gpa: 3.50, marks: '70% to 74%' },
+  { grade: 'B+', gpa: 3.25, marks: '65% to 69%' },
+  { grade: 'B',  gpa: 3.00, marks: '60% to 64%' },
+  { grade: 'B-', gpa: 2.75, marks: '55% to 59%' },
+  { grade: 'C+', gpa: 2.50, marks: '50% to 54%' },
+  { grade: 'C',  gpa: 2.25, marks: '45% to 49%' },
+  { grade: 'D',  gpa: 2.00, marks: '40% to 44%' },
+  { grade: 'F',  gpa: 0.00, marks: 'Less than 40%' },
+];
