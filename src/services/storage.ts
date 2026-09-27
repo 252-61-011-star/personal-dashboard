@@ -7,24 +7,29 @@ const STORAGE_KEY = 'anik_nexus_dashboard_v1';
 export const loadState = (): DashboardState => {
   try {
     const raw = localStorage.getItem(STORAGE_KEY);
-    if (!raw) {
-      return initialDashboardState;
+    if (raw) {
+      try {
+        const parsed = JSON.parse(raw) as Partial<DashboardState>;
+        return {
+          ...initialDashboardState,
+          ...parsed,
+          profile: { ...initialDashboardState.profile, ...parsed.profile },
+          courses: parsed.courses || initialDashboardState.courses,
+          todos: parsed.todos || initialDashboardState.todos,
+          habits: parsed.habits || initialDashboardState.habits,
+          assignments: parsed.assignments || initialDashboardState.assignments,
+          quotes: parsed.quotes || initialDashboardState.quotes,
+          books: parsed.books || initialDashboardState.books,
+          cloudConfig: { ...initialDashboardState.cloudConfig, ...parsed.cloudConfig },
+        };
+      } catch (e) {
+        console.error('Error parsing localStorage data:', e);
+      }
     }
-    const parsed = JSON.parse(raw) as Partial<DashboardState>;
-    return {
-      ...initialDashboardState,
-      ...parsed,
-      profile: { ...initialDashboardState.profile, ...parsed.profile },
-      courses: parsed.courses || initialDashboardState.courses,
-      todos: parsed.todos || initialDashboardState.todos,
-      habits: parsed.habits || initialDashboardState.habits,
-      assignments: parsed.assignments || initialDashboardState.assignments,
-      quotes: parsed.quotes || initialDashboardState.quotes,
-      books: parsed.books || initialDashboardState.books,
-      cloudConfig: { ...initialDashboardState.cloudConfig, ...parsed.cloudConfig },
-    };
+    
+    return initialDashboardState;
   } catch (error) {
-    console.error('Error loading state from localStorage:', error);
+    console.error('Error loading state:', error);
     return initialDashboardState;
   }
 };
