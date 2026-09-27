@@ -10,7 +10,8 @@ import type {
   BookLog, 
   SyllabusTopic 
 } from './types';
-import { loadState, saveState, downloadBackupFile } from './services/storage';
+import { loadState, saveState, downloadBackupFile, syncToCloud, fetchFromCloud } from './services/storage';
+import { getSupabaseConfig } from './services/supabase';
 import { Navbar } from './components/Navbar';
 import { QuoteCard } from './components/QuoteCard';
 import { DailyTodos } from './components/DailyTodos';
@@ -39,6 +40,20 @@ export function App() {
   const [showCloudSettings, setShowCloudSettings] = useState(false);
   const [showCourseModal, setShowCourseModal] = useState(false);
   const [editingCourse, setEditingCourse] = useState<Course | null>(null);
+  const [syncStatus, setSyncStatus] = useState<'idle' | 'syncing' | 'synced' | 'error'>('idle');
+  const [lastSyncedTime, setLastSyncedTime] = useState<string | null>(null);
+
+  // Initial fetch from cloud on mount
+  useEffect(() => {
+    const doInitialSync = async () => {
+      const { success, data } = await fetchFromCloud();
+      if (success && data) {
+        setState(data);
+        setLastSyncedTime(new Date().toLocaleTimeString());
+      }
+    };
+    doInitialSync();
+  }, []);
 
   // Topic Notes modal state
   const [activeTopicNote, setActiveTopicNote] = useState<{
@@ -50,6 +65,27 @@ export function App() {
   // Auto-persist state changes
   useEffect(() => {
     saveState(state);
+    
+    // Auto sync to cloud if configured
+    let debounceTimer: ReturnType<typeof setTimeout>;
+    const trySync = async () => {
+      const config = getSupabaseConfig();
+      if (config.isConfigured) {
+        setSyncStatus('syncing');
+        const res = await syncToCloud(state);
+        if (res.success) {
+          setSyncStatus('synced');
+          setLastSyncedTime(new Date().toLocaleTimeString());
+        } else {
+          setSyncStatus('error');
+        }
+        setTimeout(() => setSyncStatus('idle'), 3000);
+      }
+    };
+
+    debounceTimer = setTimeout(trySync, 1500); // 1.5s debounce for auto-sync
+
+    return () => clearTimeout(debounceTimer);
   }, [state]);
 
   // Handler: Add Quote
@@ -403,6 +439,8 @@ export function App() {
         setActiveTab={setActiveTab}
         onOpenCloudSettings={() => setShowCloudSettings(true)}
         onDownloadBackup={() => downloadBackupFile(state)}
+        syncStatus={syncStatus}
+        lastSyncedTime={lastSyncedTime}
       />
 
       {/* Main Content Area */}

@@ -19,6 +19,8 @@ interface NavbarProps {
   setActiveTab: (tab: string) => void;
   onOpenCloudSettings: () => void;
   onDownloadBackup: () => void;
+  syncStatus?: 'idle' | 'syncing' | 'synced' | 'error';
+  lastSyncedTime?: string | null;
 }
 
 export const Navbar: React.FC<NavbarProps> = ({
@@ -27,6 +29,8 @@ export const Navbar: React.FC<NavbarProps> = ({
   setActiveTab,
   onOpenCloudSettings,
   onDownloadBackup,
+  syncStatus = 'idle',
+  lastSyncedTime,
 }) => {
   const [currentTime, setCurrentTime] = useState(new Date());
   const { isConfigured } = getSupabaseConfig();
@@ -121,12 +125,22 @@ export const Navbar: React.FC<NavbarProps> = ({
               title={isConfigured ? 'Cloud Sync Active (Supabase)' : 'Connect Supabase Cloud'}
               className={`flex items-center space-x-1.5 px-3 py-1.5 rounded-lg text-xs font-medium border transition-all ${
                 isConfigured
-                  ? 'bg-emerald-950/40 text-emerald-400 border-emerald-500/30 hover:bg-emerald-900/40'
+                  ? syncStatus === 'syncing'
+                    ? 'bg-blue-950/40 text-blue-400 border-blue-500/30 animate-pulse'
+                    : syncStatus === 'error'
+                    ? 'bg-rose-950/40 text-rose-400 border-rose-500/30'
+                    : 'bg-emerald-950/40 text-emerald-400 border-emerald-500/30 hover:bg-emerald-900/40'
                   : 'bg-slate-900 text-slate-400 border-slate-800 hover:border-slate-700 hover:text-slate-200'
               }`}
             >
               <Cloud className="w-3.5 h-3.5 text-current" />
-              <span className="hidden sm:inline">{isConfigured ? 'Cloud Sync' : 'Offline / Local'}</span>
+              <span className="hidden sm:inline">{
+                !isConfigured ? 'Offline / Local' :
+                syncStatus === 'syncing' ? 'Syncing...' :
+                syncStatus === 'synced' ? 'Cloud Synced ✓' :
+                syncStatus === 'error' ? 'Sync Error' :
+                'Cloud Sync'
+              }</span>
             </button>
 
             <button
