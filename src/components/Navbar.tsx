@@ -30,7 +30,6 @@ export const Navbar: React.FC<NavbarProps> = ({
   onOpenCloudSettings,
   onDownloadBackup,
   syncStatus = 'idle',
-  lastSyncedTime,
 }) => {
   const [currentTime, setCurrentTime] = useState(new Date());
   const { isConfigured } = getSupabaseConfig();
